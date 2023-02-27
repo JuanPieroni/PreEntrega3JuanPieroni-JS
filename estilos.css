@@ -1,0 +1,14 @@
+.tarjeta {
+    margin: 0.5rem;
+    display: flex;
+    align-items: center;
+     
+
+}
+
+.imagen {
+    width: 250px;
+    height: 250px;
+    object-fit:  cover;
+    margin-top: 7px;
+}

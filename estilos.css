@@ -1,12 +1,6 @@
-.tarjeta {
-    margin: 0.5rem;
-    display: flex;
-    align-items: center;
-     
-
-}
+ 
 .colorBoton {
-    color: white;
+    color: rgb(0, 0, 0);
     background-color: #00bcd4;
 }
 .colorBoton:hover {
@@ -20,6 +14,29 @@
     margin-top: 7px;
 }
 
- .espacio {
-    height: fit-content;
- }
+ 
+
+ .colorBoton2 {
+    color: rgb(0, 0, 0);
+    background-color: #d8c987;
+}
+
+.colorBoton2:hover {
+    color: rgb(0, 0, 0);
+    background-color: #b89b1b;
+}
+
+ 
+.card2 {
+    border: 1px solid black;
+}
+
+.botonRojo {
+    color: antiquewhite;
+    background-color: rgb(204, 59, 59);
+}
+
+.botonRojo:hover {
+    color: white;
+    background-color: rgb(218, 32, 32);
+}

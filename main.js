@@ -38,11 +38,11 @@ const verProductos = () => {
         const tarjeta = document.createElement("div");
         tarjeta.classList.add("col-xl-3", "col-md-6", "col-xs-12");
         tarjeta.innerHTML = `<div class="card" >
-                                <img src="${p.img}" class="card-img-top imagen ">
+                                <img src="${p.img}" class="card-img-top imagen  ">
                                 <div class="card-body  " >
                                      <h3>${p.nombre}</h3>
                                      <p>$${p.precio}</p>
-                                     <button class="" id="boton${p.item}" >Comprar</button>
+                                     <button class="btn colorBoton2 " id="boton${p.item}" >Comprar</button>
                                </div>
                              </div>  `
 
@@ -101,13 +101,13 @@ const mostrarCarrito = () => {
     carrito.forEach(p => {
         const tarjeta = document.createElement("div");
         tarjeta.classList.add("col-xl-3", "col-md-6", "col-xs-12");
-        tarjeta.innerHTML = `<div class="card" >
+        tarjeta.innerHTML = `<div class=" card2" >
                                 <img src="${p.img}" class="card-img-top imagen ">
                                 <div class="card-body  " >
                                      <h3>${p.nombre}</h3>
                                      <p>$${p.precio}</p>
                                      <p>${p.cantidad}</p>
-                                     <button class="" id="eliminar${p.item}" >Eliminar</button>
+                                     <button class=" btn botonRojo" id="eliminar${p.item}" >Eliminar</button>
                                </div>
                              </div>  `
 
@@ -162,8 +162,18 @@ const total = document.getElementById("total");
 
 const calcularTotal = () => {
     let totalCompra = 0;
+ 
     carrito.forEach( (p) => {
         totalCompra += p.precio * p.cantidad;
     })
-    total.innerHTML = `Total: ${totalCompra}`
+    total.innerHTML = `: $ ${totalCompra}`
+
+    localStorage.setItem("totalCompra", totalCompra); 
+
 };
+
+const totalCompra = parseInt(localStorage.getItem("totalCompra"));
+
+if (totalCompra) {
+    total.innerHTML = ` $ ${totalCompra}`;
+}

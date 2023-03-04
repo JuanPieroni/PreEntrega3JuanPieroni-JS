@@ -4,7 +4,7 @@ class Product {
         this.nombre = nombre;
         this.precio = precio;
         this.img = img;
-        this.cantidad = 1 
+        this.cantidad = 1
 
     }
 }
@@ -23,6 +23,10 @@ let carrito = [];
 
 
 //LS
+if(localStorage.getItem("carrito")){
+    carrito = JSON.parse(localStorage.getItem("carrito"));
+}
+
 // dom
 
 const contenedor = document.getElementById("contenedor")
@@ -47,11 +51,11 @@ const verProductos = () => {
 
         //agregar 
 
-    const boton = document.getElementById(`boton${p.item}`);
-    boton.addEventListener("click", () => {
-    
-        agregarAlcarrito(p.item)
-    })
+        const boton = document.getElementById(`boton${p.item}`);
+        boton.addEventListener("click", () => {
+
+            agregarAlcarrito(p.item)
+        })
 
     })
 
@@ -63,21 +67,21 @@ verProductos();
 //fun agregar
 
 const agregarAlcarrito = (item) => {
-    const productoAgregado  = carrito.find(p => 
+    const productoAgregado = carrito.find(p =>
         p.item === item);
-       if (productoAgregado) {  
+    if (productoAgregado) {
         productoAgregado.cantidad++;
-}else {
-     const producto = productos.find(p => 
-        p.item === item )
+    } else {
+        const producto = productos.find(p =>
+            p.item === item)
         carrito.push(producto)
-}
-console.log(productoAgregado);
+    }
+    console.log(productoAgregado);
 
-//LS
-localStorage.setItem("carrito", JSON.stringify(carrito));
-calcularTotal();
-}; 
+    //LS
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    calcularTotal();
+};
 
 //ver Carrito
 
@@ -92,10 +96,10 @@ verCarrito.addEventListener("click", () => {
 // fun mostrarcarrito
 
 const mostrarCarrito = () => {
-    contenedorCarrito.innerHTML= "";
+    contenedorCarrito.innerHTML = " ";
 
     carrito.forEach(p => {
-         const tarjeta = document.createElement("div");
+        const tarjeta = document.createElement("div");
         tarjeta.classList.add("col-xl-3", "col-md-6", "col-xs-12");
         tarjeta.innerHTML = `<div class="card" >
                                 <img src="${p.img}" class="card-img-top imagen ">
@@ -106,10 +110,60 @@ const mostrarCarrito = () => {
                                      <button class="" id="eliminar${p.item}" >Eliminar</button>
                                </div>
                              </div>  `
-   
-   
-   contenedorCarrito.appendChild(tarjeta)
-   
-                            })
+
+
+        contenedorCarrito.appendChild(tarjeta)
+
+
+        //eliminar
+        const boton = document.getElementById(`eliminar${p.item}`);
+        boton.addEventListener("click", () => {
+
+            eliminarProducto(p.item)
+
+        })
+
+    })
+    calcularTotal();
 };
 
+//fun eliminar
+
+const eliminarProducto = (item) => {
+    const producto = carrito.find( p => p.item === item );
+    const index = carrito.indexOf(producto);
+    carrito.splice(index, 1);
+    mostrarCarrito();
+
+    //LS
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+
+};
+
+//vacio carrito
+
+const vaciarCarrito = document.getElementById("vaciarCarrito");
+vaciarCarrito.addEventListener("click", () => {
+    eliminarCarrito();
+})
+
+//fun vaciar 
+
+const eliminarCarrito = () => {
+    
+ 
+    carrito = [];
+    mostrarCarrito();
+    
+    localStorage.clear();
+}
+
+const total = document.getElementById("total");
+
+const calcularTotal = () => {
+    let totalCompra = 0;
+    carrito.forEach( (p) => {
+        totalCompra += p.precio * p.cantidad;
+    })
+    total.innerHTML = `Total: ${totalCompra}`
+};

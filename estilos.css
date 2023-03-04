@@ -5,6 +5,13 @@
      
 
 }
+.colorBoton {
+    color: white;
+    background-color: #00bcd4;
+}
+.colorBoton:hover {
+    background-color: rgb(16, 138, 187);
+}
 
 .imagen {
     width: 250px;
@@ -12,3 +19,7 @@
     object-fit:  cover;
     margin-top: 7px;
 }
+
+ .espacio {
+    height: fit-content;
+ }

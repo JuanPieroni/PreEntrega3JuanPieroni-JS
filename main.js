@@ -37,7 +37,7 @@ const verProductos = () => {
     productos.forEach(p => {
         const tarjeta = document.createElement("div");
         tarjeta.classList.add("col-xl-3", "col-md-6", "col-xs-12");
-        tarjeta.innerHTML = `<div class="card" >
+        tarjeta.innerHTML = `<div class="card h-100 d-flex d-column" >
                                 <img src="${p.img}" class="card-img-top imagen  ">
                                 <div class="card-body  " >
                                      <h3>${p.nombre}</h3>
@@ -177,3 +177,5 @@ const totalCompra = parseInt(localStorage.getItem("totalCompra"));
 if (totalCompra) {
     total.innerHTML = ` $ ${totalCompra}`;
 }
+
+

@@ -4,6 +4,7 @@ class Product {
         this.nombre = nombre;
         this.precio = precio;
         this.img = img;
+        this.cantidad = 1 
 
     }
 }
@@ -20,34 +21,95 @@ const shampoo = new Product(8, "Shampoo Solido", 900, "img/shampoo.jpeg")
 let productos = [niacinamida, acido, acondicionador, combo, aceite, mascarilla, desodorante, shampoo];
 let carrito = [];
 
+
+//LS
 // dom
 
-const contenedo = document.getElementById("contenedor")
+const contenedor = document.getElementById("contenedor")
 
 // ver productos
 
 const verProductos = () => {
-    productos.forEach(i => {
+    productos.forEach(p => {
         const tarjeta = document.createElement("div");
-        tarjeta.classList.add("col-xl-4", "col-md-6", "col-xs-12");
-        tarjeta.innerHTML = `<div class=" " >
-                                <img src="${i.img}" class="card-img-top imagen ">
+        tarjeta.classList.add("col-xl-3", "col-md-6", "col-xs-12");
+        tarjeta.innerHTML = `<div class="card" >
+                                <img src="${p.img}" class="card-img-top imagen ">
                                 <div class="card-body  " >
-                                     <h3>${i.nombre}</h3>
-                                      <p>$${i.precio}</p>
-                                      <button class="" id="boton${i.id}" >Comprar</button>
+                                     <h3>${p.nombre}</h3>
+                                     <p>$${p.precio}</p>
+                                     <button class="" id="boton${p.item}" >Comprar</button>
                                </div>
-                            </div>
+                             </div>  `
+
+
+        contenedor.appendChild(tarjeta);
+
+        //agregar 
+
+    const boton = document.getElementById(`boton${p.item}`);
+    boton.addEventListener("click", () => {
     
-        `
-        contenedor.append(tarjeta);
-   
-        
-   
-   
+        agregarAlcarrito(p.item)
     })
-}
+
+    })
+
+};
+
 verProductos();
 
-//agregar
+
+//fun agregar
+
+const agregarAlcarrito = (item) => {
+    const productoAgregado  = carrito.find(p => 
+        p.item === item);
+       if (productoAgregado) {  
+        productoAgregado.cantidad++;
+}else {
+     const producto = productos.find(p => 
+        p.item === item )
+        carrito.push(producto)
+}
+console.log(productoAgregado);
+
+//LS
+localStorage.setItem("carrito", JSON.stringify(carrito));
+calcularTotal();
+}; 
+
+//ver Carrito
+
+const contenedorCarrito = document.getElementById("contenedorCarrito");
+const verCarrito = document.getElementById("verCarrito");
+
+verCarrito.addEventListener("click", () => {
+    mostrarCarrito();
+})
+
+
+// fun mostrarcarrito
+
+const mostrarCarrito = () => {
+    contenedorCarrito.innerHTML= "";
+
+    carrito.forEach(p => {
+         const tarjeta = document.createElement("div");
+        tarjeta.classList.add("col-xl-3", "col-md-6", "col-xs-12");
+        tarjeta.innerHTML = `<div class="card" >
+                                <img src="${p.img}" class="card-img-top imagen ">
+                                <div class="card-body  " >
+                                     <h3>${p.nombre}</h3>
+                                     <p>$${p.precio}</p>
+                                     <p>${p.cantidad}</p>
+                                     <button class="" id="eliminar${p.item}" >Eliminar</button>
+                               </div>
+                             </div>  `
+   
+   
+   contenedorCarrito.appendChild(tarjeta)
+   
+                            })
+};
 
